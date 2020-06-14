@@ -7,18 +7,18 @@ using Catalog.BLL.DTO;
 using Catalog.DAL.Repositories.Interfaces;
 using AutoMapper;
 using Catalog.DAL.UnitOfWork;
-using OSBB.Security;
-using OSBB.Security.Identity;
+using CCL.Security;
+using CCL.Security.Identity;
 
 namespace Catalog.BLL.Services.Impl
 {
-    public class StreetService
-        : IStreetService
+    public class postofficeService
+        : IpostofficeService
     {
         private readonly IUnitOfWork _database;
         private int pageSize = 10;
 
-        public StreetService( 
+        public postofficeService( 
             IUnitOfWork unitOfWork)
         {
             if (unitOfWork == null)
@@ -30,55 +30,55 @@ namespace Catalog.BLL.Services.Impl
         }
 
         /// <exception cref="MethodAccessException"></exception>
-        public IEnumerable<StreetDTO> GetStreets(int pageNumber)
+        public IEnumerable<postofficeDTO> Getpostoffices(int pageNumber)
         {
             var user = SecurityContext.GetUser();
             var userType = user.GetType();
-            if (userType != typeof(Director)
+            if (userType != typeof(Admin)
                 && userType != typeof(Accountant))
             {
                 throw new MethodAccessException();
             }
-            var osbbId = user.OSBBID;
-            var streetsEntities = 
+            var postofficeId = user.postofficeID;
+            var postofficesEntities = 
                 _database
-                    .Streets
-                    .Find(z => z.OSBBID == osbbId, pageNumber, pageSize);
+                    .postoffices
+                    .Find(z => z.id == postofficeId, pageNumber, pageSize);
             var mapper = 
                 new MapperConfiguration(
-                    cfg => cfg.CreateMap<postoffice, StreetDTO>()
+                    cfg => cfg.CreateMap<postoffice, postofficeDTO>()
                     ).CreateMapper();
-            var streetsDto = 
+            var postofficesDto = 
                 mapper
-                    .Map<IEnumerable<postoffice>, List<StreetDTO>>(
-                        streetsEntities);
-            return streetsDto;
+                    .Map<IEnumerable<postoffice>, List<postofficeDTO>>(
+                        postofficesEntities);
+            return postofficesDto;
         }
 
-        public void AddStreet(StreetDTO street)
+        public void Addpostoffice(postofficeDTO postoffice)
         {
             var user = SecurityContext.GetUser();
             var userType = user.GetType();
-            if (userType != typeof(Director)
+            if (userType != typeof(Admin)
                 || userType != typeof(Accountant))
             {
                 throw new MethodAccessException();
             }
-            if (street == null)
+            if (postoffice == null)
             {
-                throw new ArgumentNullException(nameof(street));
+                throw new ArgumentNullException(nameof(postoffice));
             }
 
-            validate(street);
+            validate(postoffice);
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<StreetDTO, postoffice>()).CreateMapper();
-            var streetEntity = mapper.Map<StreetDTO, postoffice>(street);
-            _database.Streets.Create(streetEntity);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<postofficeDTO, postoffice>()).CreateMapper();
+            var postofficeEntity = mapper.Map<postofficeDTO, postoffice>(postoffice);
+            _database.postoffices.Create(postofficeEntity);
         }
 
-        private void validate(StreetDTO street)
+        private void validate(postofficeDTO postoffice)
         {
-            if (string.IsNullOrEmpty(street.Name))
+            if (string.IsNullOrEmpty(postoffice.Name))
             {
                 throw new ArgumentException("Name повинне містити значення!");
             }

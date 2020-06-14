@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Catalog.BLL.Services.Interfaces
 {
-    public interface IStreetService
+    public interface IpostofficeService
     {
-        IEnumerable<StreetDTO> GetStreets(int page);
+        IEnumerable<postofficeDTO> Getpostoffices(int page);
     }
 }

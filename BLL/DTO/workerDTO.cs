@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Catalog.BLL.DTO
 {
-    public class StreetDTO
+    class workerDTO
     {
-        public int StreetId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
     }
 }

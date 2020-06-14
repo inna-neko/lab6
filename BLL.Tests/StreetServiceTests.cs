@@ -36,7 +36,7 @@ namespace BLL.Tests
             User user = new Admin(1, "test", 1);
             SecurityContext.SetUser(user);
             var mockUnitOfWork = new Mock<IUnitOfWork>();
-            IStreetService streetService = new StreetService(mockUnitOfWork.Object);
+            IpostofficeService streetService = new StreetService(mockUnitOfWork.Object);
 
             // Act
             // Assert
@@ -62,7 +62,7 @@ namespace BLL.Tests
                 );
         }
 
-        IStreetService GetStreetService()
+        IpostofficeService GetStreetService()
         {
             var mockContext = new Mock<IUnitOfWork>();
             var expectedStreet = new postoffice() { StreetId = 1, Name = "testN", Description = "testD", OSBBID = 2};
@@ -80,7 +80,7 @@ namespace BLL.Tests
                     context.Streets)
                 .Returns(mockDbSet.Object);
 
-            IStreetService streetService = new StreetService(mockContext.Object);
+            IpostofficeService streetService = new StreetService(mockContext.Object);
 
             return streetService;
         }
