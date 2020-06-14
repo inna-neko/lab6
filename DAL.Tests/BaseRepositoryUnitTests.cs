@@ -10,10 +10,10 @@ using Moq;
 
 namespace DAL.Tests
 {
-    class TestStreetRepository
+    class TestpostoffficeRepository
         : BaseRepository<postoffice>
     {
-        public TestStreetRepository(DbContext context) 
+        public TestpostoffficeRepository(DbContext context) 
             : base(context)
         {
         }
@@ -23,7 +23,7 @@ namespace DAL.Tests
     {
 
         [Fact]
-        public void Create_InputStreetInstance_CalledAddMethodOfDBSetWithStreetInstance()
+        public void Create_InputpostoffficeInstance_CalledAddMethodOfDBSetWithpostoffficeInstance()
         {
             // Arrange
             DbContextOptions opt = new DbContextOptionsBuilder<postContext>()
@@ -36,17 +36,17 @@ namespace DAL.Tests
                         ))
                 .Returns(mockDbSet.Object);
             //EFUnitOfWork uow = new EFUnitOfWork(mockContext.Object);
-            var repository = new TestStreetRepository(mockContext.Object);
+            var repository = new TestpostoffficeRepository(mockContext.Object);
 
-            postoffice expectedStreet = new Mock<postoffice>().Object;
+            postoffice expectedpostofffice = new Mock<postoffice>().Object;
 
             //Act
-            repository.Create(expectedStreet);
+            repository.Create(expectedpostofffice);
 
             // Assert
             mockDbSet.Verify(
                 dbSet => dbSet.Add(
-                    expectedStreet
+                    expectedpostofffice
                     ), Times.Once());
         }
 
@@ -64,23 +64,23 @@ namespace DAL.Tests
                         ))
                 .Returns(mockDbSet.Object);
             //EFUnitOfWork uow = new EFUnitOfWork(mockContext.Object);
-            //IStreetRepository repository = uow.Streets;
-            var repository = new TestStreetRepository(mockContext.Object);
+            //IpostoffficeRepository repository = uow.postofffices;
+            var repository = new TestpostoffficeRepository(mockContext.Object);
 
-            postoffice expectedStreet = new postoffice() { StreetId = 1};
-            mockDbSet.Setup(mock => mock.Find(expectedStreet.StreetId)).Returns(expectedStreet);
+            postoffice expectedpostofffice = new postoffice() { id = 1};
+            mockDbSet.Setup(mock => mock.Find(expectedpostofffice.id)).Returns(expectedpostofffice);
 
             //Act
-            repository.Delete(expectedStreet.StreetId);
+            repository.Delete(expectedpostofffice.id);
 
             // Assert
             mockDbSet.Verify(
                 dbSet => dbSet.Find(
-                    expectedStreet.StreetId
+                    expectedpostofffice.id
                     ), Times.Once());
             mockDbSet.Verify(
                 dbSet => dbSet.Remove(
-                    expectedStreet
+                    expectedpostofffice
                     ), Times.Once());
         }
 
@@ -98,20 +98,20 @@ namespace DAL.Tests
                         ))
                 .Returns(mockDbSet.Object);
 
-            postoffice expectedStreet = new postoffice() { StreetId = 1 };
-            mockDbSet.Setup(mock => mock.Find(expectedStreet.StreetId))
-                    .Returns(expectedStreet);
-            var repository = new TestStreetRepository(mockContext.Object);
+            postoffice expectedpostofffice = new postoffice() { id = 1 };
+            mockDbSet.Setup(mock => mock.Find(expectedpostofffice.id))
+                    .Returns(expectedpostofffice);
+            var repository = new TestpostoffficeRepository(mockContext.Object);
 
             //Act
-            var actualStreet = repository.Get(expectedStreet.StreetId);
+            var actualpostofffice = repository.Get(expectedpostofffice.id);
 
             // Assert
             mockDbSet.Verify(
                 dbSet => dbSet.Find(
-                    expectedStreet.StreetId
+                    expectedpostofffice.id
                     ), Times.Once());
-            Assert.Equal(expectedStreet, actualStreet);
+            Assert.Equal(expectedpostofffice, actualpostofffice);
         }
 
       
