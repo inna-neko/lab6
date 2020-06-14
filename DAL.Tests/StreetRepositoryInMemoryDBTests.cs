@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DAL.Tests
 {
-    public class StreetRepositoryInMemoryDBTests
+    public class postofficeRepositoryInMemoryDBTests
     {
         public postContext Context => SqlLiteInMemoryContext();
 
@@ -27,82 +27,79 @@ namespace DAL.Tests
         }
 
         [Fact]
-        public void Create_InputStreetWithId0_SetStreetId1()
+        public void Create_InputpostofficeWithId0_SetpostofficeId1()
         {
             // Arrange
             int expectedListCount = 1;
             var context = SqlLiteInMemoryContext();
             EFUnitOfWork uow = new EFUnitOfWork(context);
-            IpostofficeRepository repository = uow.Streets;
+            IpostofficeRepository repository = uow.postoffices;
 
-            postoffice street = new postoffice()
+            postoffice postoffice = new postoffice()
             {
-                OSBBID = 5,
+                id = 5,
                 Name = "test",
-                Description = "testD",
-                OSBB = new OSBB() { OSBBID = 5}
+                Address = "testD"
             };
 
             //Act
-            repository.Create(street);
+            repository.Create(postoffice);
             uow.Save();
-            var factListCount = context.Streets.Count();
+            var factListCount = context.postoffices.Count();
 
             // Assert
             Assert.Equal(expectedListCount, factListCount);
         }
 
         [Fact]
-        public void Delete_InputExistStreetId_Removed()
+        public void Delete_InputExistpostofficeId_Removed()
         {
             // Arrange
             int expectedListCount = 0;
             var context = SqlLiteInMemoryContext();
             EFUnitOfWork uow = new EFUnitOfWork(context);
-            IpostofficeRepository repository = uow.Streets;
-            postoffice street = new postoffice()
+            IpostofficeRepository repository = uow.postoffices;
+            postoffice postoffice = new postoffice()
             {
-                //StreetId = 1,
-                OSBBID = 5,
+                //Id = 1,
+                id = 5,
                 Name = "test",
-                Description = "testD",
-                OSBB = new OSBB() { OSBBID = 5 }
+                Address = "testD"
             };
-            context.Streets.Add(street);
+            context.postoffices.Add(postoffice);
             context.SaveChanges();
 
             //Act
-            repository.Delete(street.StreetId);
+            repository.Delete(postoffice.id);
             uow.Save();
-            var factStreetCount = context.Streets.Count();
+            var factpostofficeCount = context.postoffices.Count();
 
             // Assert
-            Assert.Equal(expectedListCount, factStreetCount);
+            Assert.Equal(expectedListCount, factpostofficeCount);
         }
 
         [Fact]
-        public void Get_InputExistStreetId_ReturnStreet()
+        public void Get_InputExistpostofficeId_Returnpostoffice()
         {
             // Arrange
             var context = SqlLiteInMemoryContext();
             EFUnitOfWork uow = new EFUnitOfWork(context);
-            IpostofficeRepository repository = uow.Streets;
-            postoffice expectedStreet = new postoffice()
+            IpostofficeRepository repository = uow.postoffices;
+            postoffice expectedpostoffice = new postoffice()
             {
-                //StreetId = 1,
-                OSBBID = 5,
+                //Id = 1,
+                id = 5,
                 Name = "test",
-                Description = "testD",
-                OSBB = new OSBB() { OSBBID = 5 }
+                Address = "testD"
             };
-            context.Streets.Add(expectedStreet);
+            context.postoffices.Add(expectedpostoffice);
             context.SaveChanges();
 
             //Act
-            var factStreet = repository.Get(expectedStreet.StreetId);
+            var factpostoffice = repository.Get(expectedpostoffice.id);
 
             // Assert
-            Assert.Equal(expectedStreet, factStreet);
+            Assert.Equal(expectedpostoffice, factpostoffice);
         }
     }
 }
