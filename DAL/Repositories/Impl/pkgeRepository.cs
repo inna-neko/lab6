@@ -12,6 +12,9 @@ namespace Catalog.DAL.Repositories.Impl
     public class pkgeRepository
         : BaseRepository<pkge>, IpkgeRepository
     {
+        public pkgeRepository()
+        {
+        }
 
         internal pkgeRepository(postContext context)  
             : base(context)
