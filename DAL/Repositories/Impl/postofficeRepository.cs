@@ -12,7 +12,7 @@ namespace Catalog.DAL.Repositories.Impl
     public class postofficeRepository
         : BaseRepository<postoffice>, IpostofficeRepository
     {
-        internal postofficeRepository(OSBBContext context) //TODO: add context
+        internal postofficeRepository(postContext context) 
             : base(context)
         {
         }

@@ -13,7 +13,7 @@ namespace Catalog.DAL.Repositories.Impl
     public class workerRepository
         : BaseRepository<worker>, IworkerRepository
     {
-        internal workerRepository(OSBBContext context) //TODO: add context
+        internal workerRepository(postContext context)
             : base(context)
         {
         }

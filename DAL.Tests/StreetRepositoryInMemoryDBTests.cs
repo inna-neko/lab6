@@ -11,16 +11,16 @@ namespace DAL.Tests
 {
     public class StreetRepositoryInMemoryDBTests
     {
-        public OSBBContext Context => SqlLiteInMemoryContext();
+        public postContext Context => SqlLiteInMemoryContext();
 
-        private OSBBContext SqlLiteInMemoryContext()
+        private postContext SqlLiteInMemoryContext()
         {
 
-            var options = new DbContextOptionsBuilder<OSBBContext>()
+            var options = new DbContextOptionsBuilder<postContext>()
                 .UseSqlite("DataSource=:memory:")
                 .Options;
 
-            var context = new OSBBContext(options);
+            var context = new postContext(options);
             context.Database.OpenConnection();
             context.Database.EnsureCreated();
             return context;

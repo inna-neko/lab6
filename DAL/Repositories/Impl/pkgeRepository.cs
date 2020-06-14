@@ -13,7 +13,7 @@ namespace Catalog.DAL.Repositories.Impl
         : BaseRepository<pkge>, IpkgeRepository
     {
 
-        internal pkgeRepository(OSBBContext context)   //TODO: add context
+        internal pkgeRepository(postContext context)  
             : base(context)
         {
         }

@@ -8,8 +8,9 @@ namespace Catalog.DAL.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        IpkgeRepository OSBBs { get; }
-        IpostofficeRepository Streets { get; }
+        IpkgeRepository pkges { get; }
+        IpostofficeRepository postoffices { get; }
+        IworkerRepository workers { get; }
         void Save();
     }
 }

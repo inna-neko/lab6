@@ -26,9 +26,9 @@ namespace DAL.Tests
         public void Create_InputStreetInstance_CalledAddMethodOfDBSetWithStreetInstance()
         {
             // Arrange
-            DbContextOptions opt = new DbContextOptionsBuilder<OSBBContext>()
+            DbContextOptions opt = new DbContextOptionsBuilder<postContext>()
                 .Options;
-            var mockContext = new Mock<OSBBContext>(opt);
+            var mockContext = new Mock<postContext>(opt);
             var mockDbSet = new Mock<DbSet<postoffice>>();
             mockContext
                 .Setup(context => 
@@ -54,9 +54,9 @@ namespace DAL.Tests
         public void Delete_InputId_CalledFindAndRemoveMethodsOfDBSetWithCorrectArg()
         {
             // Arrange
-            DbContextOptions opt = new DbContextOptionsBuilder<OSBBContext>()
+            DbContextOptions opt = new DbContextOptionsBuilder<postContext>()
                 .Options;
-            var mockContext = new Mock<OSBBContext>(opt);
+            var mockContext = new Mock<postContext>(opt);
             var mockDbSet = new Mock<DbSet<postoffice>>();
             mockContext
                 .Setup(context =>
@@ -88,9 +88,9 @@ namespace DAL.Tests
         public void Get_InputId_CalledFindMethodOfDBSetWithCorrectId()
         {
             // Arrange
-            DbContextOptions opt = new DbContextOptionsBuilder<OSBBContext>()
+            DbContextOptions opt = new DbContextOptionsBuilder<postContext>()
                 .Options;
-            var mockContext = new Mock<OSBBContext>(opt);
+            var mockContext = new Mock<postContext>(opt);
             var mockDbSet = new Mock<DbSet<postoffice>>();
             mockContext
                 .Setup(context =>
